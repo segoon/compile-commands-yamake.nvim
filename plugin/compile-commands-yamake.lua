@@ -6,7 +6,8 @@ local function generate_compile_commands(root, with_codegen)
     end)
   end
 
-  vim.system({'ya', 'dump', 'compile_commands'},
+  -- --force-build-depends means "build tests too"
+  vim.system({'ya', 'dump', 'compile_commands', '--force-build-depends'},
     function(obj)
       local file = io.open(root .. '/compile_commands.json', 'w')
       file:write(obj.stdout)
@@ -17,7 +18,7 @@ local function generate_compile_commands(root, with_codegen)
 end
 
 local function ask_for_compile_commands()
-  local root = vim.fs.root(0, {'service.yaml', 'codegen-module.yaml'})
+  local root = vim.fs.root(0, {'service.yaml', 'library.yaml', 'codegen-module.yaml'})
   if not root then
     root = vim.fs.root(0, {'ya.make'})
   end
@@ -44,4 +45,16 @@ vim.api.nvim_create_autocmd(
     pattern = {'*.cpp', '*.hpp'},
     callback = ask_for_compile_commands,
   }
+)
+
+vim.api.nvim_create_user_command(
+  'GenerateCompileCommands',
+  function(args)
+    local root = vim.fs.root(0, {'service.yaml', 'codegen-module.yaml'})
+    if not root then
+      root = vim.fs.root(0, {'ya.make'})
+    end
+    generate_compile_commands(root, true)
+  end,
+  {}
 )
