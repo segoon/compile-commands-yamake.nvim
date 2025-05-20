@@ -2,7 +2,7 @@ local function generate_compile_commands(root, with_codegen)
   print('\nGenerating compile_commands.json...')
   if with_codegen then
     vim.system({'ya', 'make', '--add-result=', '--replace-result'}, function(obj)
-      vim.schedule(function() vim.cmd.echo({'"Codegen files are generated"'}) end)
+      vim.schedule(function() vim.notify({'"Codegen files are generated"'}) end)
     end)
   end
 
@@ -12,7 +12,7 @@ local function generate_compile_commands(root, with_codegen)
       local file = io.open(root .. '/compile_commands.json', 'w')
       file:write(obj.stdout)
       file:close()
-      vim.schedule(function() vim.cmd.echo({'"compile_commands.json is generated"'}) end)
+      vim.schedule(function() vim.notify({'"compile_commands.json is generated"'}) end)
     end
   )
 end
