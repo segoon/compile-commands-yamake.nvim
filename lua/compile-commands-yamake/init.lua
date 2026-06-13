@@ -35,7 +35,8 @@ local function generate_compile_commands(root, with_codegen)
 end
 
 local function find_arcadia_root()
-	return vim.fs.root(0, { ".arcadia.root" })
+	--return vim.fs.root(0, { ".arcadia.root" })
+	return vim.fs.root(0, { "service.yaml", "library.yaml", "codegen-module.yaml" })
 end
 
 local function make_autocmd_callback(opts)
