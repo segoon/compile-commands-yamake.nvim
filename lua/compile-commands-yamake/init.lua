@@ -72,7 +72,7 @@ local function make_autocmd_callback(opts)
       vim.ui.input(
         { prompt = 'Generate compile_commands.json for ' .. root .. '? [Y/n] ' },
         function(input)
-          if input == '' or input == 'y' or input == 'Y' then
+          if input ~= nil and (input == '' or input == 'y' or input == 'Y') then
             generate_compile_commands(root, true)
           end
         end
