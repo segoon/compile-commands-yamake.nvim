@@ -107,6 +107,12 @@ function M.setup(opts)
     callback = make_autocmd_callback(opts),
     desc     = 'compile-commands-yamake: auto-generate compile_commands.json',
   })
+
+  -- Handle the buffer that triggered lazy-loading (its FileType already fired)
+  local current_ft = vim.bo.filetype
+  if vim.tbl_contains(opts.filetypes, current_ft) then
+    make_autocmd_callback(opts)()
+  end
 end
 
 return M

@@ -35,8 +35,8 @@ require('compile-commands-yamake').setup({
 
 ```lua
 require('compile-commands-yamake').setup({
-  -- File patterns that trigger the autocmd
-  patterns = { '*.c', '*.cpp', '*.hpp' },
+  -- Filetypes that trigger the autocmd
+  filetypes = { 'c', 'cpp' },
 
   -- 'ask'    – prompt the user on file open
   -- 'auto'   – generate silently on file open
@@ -52,7 +52,7 @@ require('compile-commands-yamake').setup({
 
 ## Usage
 
-The plugin triggers on `.c`, `.cpp`, and `.hpp` file opens (configurable via `patterns`).
+The plugin triggers on `c` and `cpp` filetypes (configurable via `filetypes`).
 
 - **`ask` mode** – prompts whether to generate `compile_commands.json` for the detected arcadia root.
 - **`auto` mode** – generates immediately without prompting.
