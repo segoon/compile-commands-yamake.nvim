@@ -11,6 +11,7 @@ Generates `compile_commands.json` via `ya dump compile_commands` for Arcadia-bas
   'segoon/compile-commands-yamake.nvim',
   ft = { 'c', 'cpp' },
   opts = {
+    filetypes   = { 'c', 'cpp' },
     mode        = 'ask',
     ignore_dirs = { 'contrib', 'vendor' },
   },

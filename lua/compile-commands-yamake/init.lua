@@ -1,7 +1,7 @@
 local M = {}
 
 local default_opts = {
-  patterns    = { '*.c', '*.cpp', '*.hpp' },
+  filetypes   = { 'c', 'cpp' },
   mode        = 'ask',   -- 'ask' | 'auto' | 'nothing'
   ignore_dirs = {},
 }
@@ -102,8 +102,8 @@ function M.setup(opts)
     return
   end
 
-  vim.api.nvim_create_autocmd('BufReadPost', {
-    pattern  = opts.patterns,
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern  = opts.filetypes,
     callback = make_autocmd_callback(opts),
     desc     = 'compile-commands-yamake: auto-generate compile_commands.json',
   })
