@@ -51,8 +51,9 @@ local function make_autocmd_callback(opts)
 		if not root then
 			return
 		end
-		if vim.fs.root(0, { "compile_commands.json" }) then
-			-- Already generated
+		local cc_root = vim.fs.root(0, { "compile_commands.json" })
+		if cc_root and cc_root:sub(1, #root) == root then
+			-- Already generated within arcadia
 			return
 		end
 
@@ -99,12 +100,6 @@ function M.setup(opts)
 		callback = make_autocmd_callback(opts),
 		desc = "compile-commands-yamake: auto-generate compile_commands.json",
 	})
-
-	-- Handle the buffer that triggered lazy-loading (its FileType already fired)
-	local current_ft = vim.bo.filetype
-	if vim.tbl_contains(opts.filetypes, current_ft) then
-		make_autocmd_callback(opts)()
-	end
 end
 
 return M
