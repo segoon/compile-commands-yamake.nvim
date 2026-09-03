@@ -34,9 +34,8 @@ local function generate_compile_commands(root, with_codegen)
 	end)
 end
 
-local function find_arcadia_root()
-	--return vim.fs.root(0, { ".arcadia.root" })
-	return vim.fs.root(0, { "service.yaml", "library.yaml", "codegen-module.yaml" })
+local function find_project_root()
+	return vim.fs.root(0, { {"service.yaml", "library.yaml", "codegen-module.yaml"}, {"ya.make"} })
 end
 
 local function make_autocmd_callback(opts)
@@ -47,7 +46,7 @@ local function make_autocmd_callback(opts)
 	end
 
 	return function()
-		local root = find_arcadia_root()
+		local root = find_project_root()
 		if not root then
 			return
 		end
@@ -83,9 +82,9 @@ function M.setup(opts)
 
 	-- Always register the user command (no ignore_dirs, no mode check)
 	vim.api.nvim_create_user_command("GenerateCompileCommands", function(_)
-		local root = find_arcadia_root()
+		local root = find_project_root()
 		if not root then
-			vim.notify("Could not find arcadia root", vim.log.levels.ERROR)
+			vim.notify("Could not find project root", vim.log.levels.ERROR)
 			return
 		end
 		generate_compile_commands(root, true)
