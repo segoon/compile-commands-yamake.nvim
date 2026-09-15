@@ -1,5 +1,11 @@
 # compile-commands-yamake.nvim
 
+> [!WARNING]
+> This plugin is deprecated and is no longer maintained. Use
+> [arcadia-lspconfig.nvim](https://github.com/segoon/arcadia-lspconfig.nvim)
+> instead. It generates compile commands and codegen outputs for clangd while
+> also managing the Arcadia-aware LSP integration.
+
 Generates `compile_commands.json` via `ya dump compile_commands` for Arcadia-based projects.
 
 ## Installation
